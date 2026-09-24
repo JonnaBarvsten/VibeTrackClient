@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
 import { checkAuthentication } from "../../services/AuthService";
-import { Navigate  } from "react-router-dom";
+import { Navigate, useLocation  } from "react-router-dom";
 
 
 export default function ProtectedRoute({children}){
     const [isAuthenticated, setIsAuthenticated] = useState(null);
+    const location = useLocation();
 
     useEffect(() => {
         async function checkAuth(){
+            setIsAuthenticated(null);
             const authenticated = await checkAuthentication();
             setIsAuthenticated(authenticated);
         }
 
         checkAuth();
-    }, []);
+    }, [location.pathname]);
 
     if(isAuthenticated === null){
         return <p>Loading....</p>

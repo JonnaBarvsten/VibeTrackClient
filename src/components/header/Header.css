@@ -1,0 +1,22 @@
+.header {
+    background-color: #6f5f8f !important;
+}
+
+.header-toolbar {
+    position: relative;
+}
+
+.header-user {
+    margin-right: auto !important;
+}
+
+.header-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: bold !important;
+}
+
+.header-logout {
+    margin-left: auto !important;
+}

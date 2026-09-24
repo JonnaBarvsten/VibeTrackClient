@@ -1,54 +1,117 @@
-import './StatCard.css'
-import { Card, CardContent, Typography } from '@mui/material'
+import './StatCard.css';
+import {
+    Card,
+    CardContent,
+    Typography,
+    Paper,
+    Box,
+    Button
+} from '@mui/material';
 
-export default function StatCard() {
+import { useState } from 'react';
+import StatModal from '../statModal/StatModal';
+
+export default function StatCard({ logs = [], onRefresh }) {
+
+    const [openModal, setOpenModal] = useState(false);
+
+    const todayLog = logs.find(log => new Date(log.date).toDateString() === new Date().toDateString());
+
+    const latestMoodLog = todayLog?.dailyStats?.moodLogs?.[0];
+
+    const mood = latestMoodLog?.mood ?? "-";
+    const energy = latestMoodLog?.energyLevel ?? "-";
+    const stress = latestMoodLog?.stressLevel ?? "-";
+    const sleep = todayLog?.dailyStats?.hoursOfSleep ?? "-";
+
     return (
-        <div className="stats-container">
+        <Paper className="stats-container">
 
-            <Card className="stat-card"
-                sx= {{
+            <Box>
+                <Typography>
+                    {todayLog ? "Dagens översikt" : "Hur mår du idag?"}
+                </Typography>
+
+                <Button onClick={() => setOpenModal(true)}>
+                    {todayLog ? "Redigera dag" : "Logga din dag"}
+                </Button>
+            </Box>
+
+            <Card
+                className="stat-card"
+                sx={{
                     borderRadius: 3
-                }} 
+                }}
             >
                 <CardContent>
-                    <Typography>Humör</Typography>
-                    <Typography>8/10</Typography>
+                    <Typography>
+                        Humör
+                    </Typography>
+
+                    <Typography>
+                        {todayLog ? mood : "-"}
+                    </Typography>
                 </CardContent>
             </Card>
 
-            <Card className="stat-card"
-                 sx= {{
+            <Card
+                className="stat-card"
+                sx={{
                     borderRadius: 3
-                }} 
-            >
-                <CardContent >
-                    <Typography>Energi</Typography>
-                    <Typography>5/10</Typography>
-                </CardContent>
-            </Card>
-
-            <Card className="stat-card"
-                 sx= {{
-                    borderRadius: 3
-                }} 
+                }}
             >
                 <CardContent>
-                    <Typography>Stress</Typography>
-                    <Typography>2/10</Typography>
+                    <Typography>
+                        Energi
+                    </Typography>
+
+                    <Typography>
+                        {todayLog ? energy : "-"}
+                    </Typography>
                 </CardContent>
             </Card>
 
-            <Card className="stat-card"
-                 sx= {{
+            <Card
+                className="stat-card"
+                sx={{
                     borderRadius: 3
-                }} 
+                }}
             >
                 <CardContent>
-                    <Typography>Sömn</Typography>
-                    <Typography>8 tim</Typography>
+                    <Typography>
+                        Stress
+                    </Typography>
+
+                    <Typography>
+                        {todayLog ? stress : "-"}
+                    </Typography>
                 </CardContent>
             </Card>
 
-        </div>
-    )
+            <Card
+                className="stat-card"
+                sx={{
+                    borderRadius: 3
+                }}
+            >
+                <CardContent>
+                    <Typography>
+                        Sömn
+                    </Typography>
+
+                    <Typography>
+                        {todayLog ? sleep : "-"}
+                    </Typography>
+                </CardContent>
+            </Card>
+
+            <StatModal
+                open={openModal}
+                onClose={() => setOpenModal(false)}
+                todayLog={todayLog}
+                onSave={onRefresh}
+            />
+
+        </Paper>
+    );
 }

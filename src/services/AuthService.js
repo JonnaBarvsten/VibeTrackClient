@@ -1,14 +1,12 @@
-import axios from 'axios'
+import axios from 'axios';
 
-const api = axios.create({
+export const api = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
     withCredentials: true,
-})
-
-console.log(import.meta.env.VITE_API_BASE_URL);
+});
 
 export async function login(email, password) {
-    const response = await api.post("/Auth/login?useCookies=true", {email, password});
+    const response = await api.post("/Auth/login", {email, password});
     return response.data;
 }
 
@@ -19,16 +17,20 @@ export async function register(userData) {
 
 export async function logout() {
     const response = await api.post("/Auth/logout");
-    return response.data
+    return response.data;
 }
 
-export async function  checkAuthentication() {
-    try{
-        await api.get("/Auth/me")
-        return true;
-    } catch(error){
-        if(error.response?.status == 401){
-            return false;
+export async function checkAuthentication() {
+    try {
+        const response = await api.get("/Auth/me");
+        return response.data;
+
+    } catch (error) {
+        if (error.response?.status === 401) {
+            return null;
         }
+
+        console.log("Fel vid hämtning av användare:", error);
+        return null;
     }
 }
