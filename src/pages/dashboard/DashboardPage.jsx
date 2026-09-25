@@ -69,7 +69,11 @@ export default function DashboardPage() {
                     />
                 </Grid>
 
-                <Grid container spacing={3} alignItems="stretch">
+                <Grid
+                    container
+                    spacing={3}
+                    alignItems="stretch"
+                >
 
                     <Grid size={{ xs: 12, md: 8 }}>
                         <MoodChart logs={logs} />
@@ -83,12 +87,14 @@ export default function DashboardPage() {
 
                 </Grid>
 
+                <Box sx={{ mt: 6 }}>
+                    <SummaryStatCard logs={logs} />
+                </Box>
+
                 <LogList
                     logs={logs}
                     onDeleteLog={handleDeleteLog}
                 />
-
-                <SummaryStatCard logs={logs} />
 
             </Box>
         </>
