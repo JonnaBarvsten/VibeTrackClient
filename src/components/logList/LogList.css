@@ -1,0 +1,39 @@
+.log-container {
+    padding: 24px;
+    margin-top: 24px;
+}
+
+.log-title {
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.log-scroll {
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 6px;
+}
+
+.log-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.log-item {
+    padding: 8px 16px;
+}
+
+@media (max-width: 600px) {
+    .log-container {
+        padding: 16px;
+    }
+
+    .log-title {
+        font-size: 1.1rem;
+    }
+
+    .log-item {
+        padding: 6px 12px;
+    }
+}
