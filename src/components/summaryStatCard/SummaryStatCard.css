@@ -1,0 +1,43 @@
+.summary-container {
+    padding: 24px;
+}
+
+.summary-title {
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.summary-card-content {
+    text-align: center;
+}
+
+.summary-label {
+    margin-bottom: 8px;
+    color: #625A6B;
+}
+
+.summary-value {
+    font-weight: 600;
+    color: #3F354D;
+}
+
+@media (max-width: 600px) {
+    .summary-container {
+        padding: 16px;
+    }
+
+    .summary-title {
+        font-size: 1.1rem;
+    }
+
+    .summary-cards {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
