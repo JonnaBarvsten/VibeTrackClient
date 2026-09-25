@@ -1,15 +1,55 @@
 .stats-container {
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.stats-header {
     display: flex;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
-.stats-container .MuiCard-root {
-    width: 200px;
+.stats-title {
+    font-weight: 600;
 }
 
-.stat-card {
-    margin-top: 20px;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+.stats-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.stat-card-content {
+    text-align: center;
+}
+
+.stat-label {
+    margin-bottom: 8px;
+    color: #625A6B;
+}
+
+.stat-value {
+    font-weight: 600;
+    color: #3F354D;
+}
+
+@media (max-width: 600px) {
+
+    .stats-container {
+        padding: 16px;
+    }
+
+    .stats-header {
+        gap: 12px;
+    }
+
+    .stats-title {
+        font-size: 1.1rem;
+    }
+
+    .stats-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
 }

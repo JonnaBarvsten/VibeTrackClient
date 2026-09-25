@@ -41,17 +41,10 @@ export default function StatModal({ open, onClose, todayLog, onSave }) {
 
   const defaultMood = moods.length > 0 ? moods[0].id : 1;
 
-  const initialMoodId =
-    todayLog?.dailyStats?.moodLogs?.[0]?.mood ?? defaultMood;
-
-  const initialEnergy =
-    todayLog?.dailyStats?.moodLogs?.[0]?.energyLevel ?? 3;
-
-  const initialStress =
-    todayLog?.dailyStats?.moodLogs?.[0]?.stressLevel ?? 3;
-
-  const initialSleep =
-    todayLog?.dailyStats?.hoursOfSleep ?? 8;
+  const initialMoodId =todayLog?.dailyStats?.moodLogs?.[0]?.mood ?? defaultMood;
+  const initialEnergy =todayLog?.dailyStats?.moodLogs?.[0]?.energyLevel ?? 3;
+  const initialStress =todayLog?.dailyStats?.moodLogs?.[0]?.stressLevel ?? 3;
+  const initialSleep =todayLog?.dailyStats?.hoursOfSleep ?? 8;
 
   const [moodId, setMoodId] = useState(initialMoodId);
   const [energyLevel, setEnergyLevel] = useState(initialEnergy);
@@ -140,12 +133,22 @@ export default function StatModal({ open, onClose, todayLog, onSave }) {
       onClose={handleClose}
       fullWidth
       maxWidth="sm"
+      slotProps={{
+        paper: {
+          sx: {
+            borderRadius: 3
+          }
+        }
+      }}
     >
 
-      <DialogTitle>
-        {todayLog
-          ? "Redigera dagens logg"
-          : "Logga idag"}
+      <DialogTitle
+        sx={{
+          color: '#3F354D',
+          fontWeight: 600
+        }}
+      >
+        {todayLog ? "Redigera dagens logg" : "Logga idag"}
       </DialogTitle>
 
       <DialogContent
@@ -202,9 +205,17 @@ export default function StatModal({ open, onClose, todayLog, onSave }) {
           onChange={(e, newValue) =>
             setEnergyLevel(newValue)
           }
+          sx={{
+            color: '#6f5f8f'
+          }}
         />
 
-        <Typography variant="caption">
+        <Typography
+          variant="caption"
+          sx={{
+            color: '#625A6B'
+          }}
+        >
           1 = Helt Slut! &nbsp;&nbsp;&nbsp;
           5 = DUNDER!
         </Typography>
@@ -226,9 +237,17 @@ export default function StatModal({ open, onClose, todayLog, onSave }) {
           onChange={(e, newValue) =>
             setStressLevel(newValue)
           }
+          sx={{
+            color: '#6f5f8f'
+          }}
         />
 
-        <Typography variant="caption">
+        <Typography
+          variant="caption"
+          sx={{
+            color: '#625A6B'
+          }}
+        >
           1 = Ingen Stress &nbsp;&nbsp;&nbsp;
           5 = Kritisk Stress!
         </Typography>
@@ -242,17 +261,19 @@ export default function StatModal({ open, onClose, todayLog, onSave }) {
 
         <TextField
           fullWidth
-          type="number"
+          type="text"
           value={sleep}
-          onChange={(e) =>
-            setSleep(e.target.value)
-          }
+          onChange={(e) => {
+            const value = e.target.value;
+
+            if (/^\d*\.?\d*$/.test(value)) {
+              setSleep(value);
+            }
+          }}
           slotProps={{
             htmlInput: {
-              min: 0,
-              max: 24,
-              step: 0.5,
-            },
+              inputMode: "decimal"
+            }
           }}
         />
 
@@ -270,6 +291,13 @@ export default function StatModal({ open, onClose, todayLog, onSave }) {
         <Button
           variant="contained"
           onClick={handleSubmit}
+          sx={{
+            backgroundColor: '#6f5f8f',
+            borderRadius: 2,
+            '&:hover': {
+              backgroundColor: '#594b75'
+            }
+          }}
         >
           Spara
         </Button>

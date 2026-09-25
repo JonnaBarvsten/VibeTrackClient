@@ -7,7 +7,6 @@ import {
     Box,
     Button
 } from '@mui/material';
-
 import { useState } from 'react';
 import StatModal from '../statModal/StatModal';
 
@@ -17,101 +16,137 @@ export default function StatCard({ logs = [], onRefresh }) {
 
     const todayLog = logs.find(log => new Date(log.date).toDateString() === new Date().toDateString());
 
-    const latestMoodLog = todayLog?.dailyStats?.moodLogs?.[0];
-
-    const mood = latestMoodLog?.mood ?? "-";
-    const energy = latestMoodLog?.energyLevel ?? "-";
-    const stress = latestMoodLog?.stressLevel ?? "-";
+    const mood = todayLog?.dailyStats?.moodLogs?.[0]?.moodName ?? "-";
+    const energy = todayLog?.dailyStats?.moodLogs?.[0]?.energyLevel ?? "-";
+    const stress = todayLog?.dailyStats?.moodLogs?.[0]?.stressLevel ?? "-";
     const sleep = todayLog?.dailyStats?.hoursOfSleep ?? "-";
 
+    const handleOpenModal = (e) => {
+        e.currentTarget.blur();
+        setOpenModal(true);
+    };
+
     return (
-        <Paper className="stats-container">
-
-            <Box>
-                <Typography>
-                    {todayLog ? "Dagens översikt" : "Hur mår du idag?"}
-                </Typography>
-
-                <Button onClick={() => setOpenModal(true)}>
-                    {todayLog ? "Redigera dag" : "Logga din dag"}
-                </Button>
-            </Box>
-
-            <Card
-                className="stat-card"
-                sx={{
-                    borderRadius: 3
-                }}
+        <>
+            <Paper
+                className="stats-container"
+                sx={{ borderRadius: 3 }}
             >
-                <CardContent>
-                    <Typography>
-                        Humör
+                <Box className="stats-header">
+                    <Typography
+                        variant="h6"
+                        className="stats-title"
+                    >
+                        {todayLog ? "Dagens översikt" : "Hur mår du idag?"}
                     </Typography>
 
-                    <Typography>
-                        {todayLog ? mood : "-"}
-                    </Typography>
-                </CardContent>
-            </Card>
+                    <Button
+                        variant="contained"
+                        onClick={handleOpenModal}
+                        sx={{
+                            backgroundColor: '#6f5f8f',
+                            borderRadius: 2,
+                            '&:hover': {
+                                backgroundColor: '#594b75'
+                            }
+                        }}
+                    >
+                        {todayLog ? "Redigera dag" : "Logga din dag"}
+                    </Button>
 
-            <Card
-                className="stat-card"
-                sx={{
-                    borderRadius: 3
-                }}
-            >
-                <CardContent>
-                    <Typography>
-                        Energi
-                    </Typography>
+                </Box>
 
-                    <Typography>
-                        {todayLog ? energy : "-"}
-                    </Typography>
-                </CardContent>
-            </Card>
+                <Box className="stats-cards">
 
-            <Card
-                className="stat-card"
-                sx={{
-                    borderRadius: 3
-                }}
-            >
-                <CardContent>
-                    <Typography>
-                        Stress
-                    </Typography>
+                    <Card
+                        sx={{
+                            borderRadius: 3,
+                            backgroundColor: '#F4F1F8'
+                        }}
+                    >
+                        <CardContent className="stat-card-content">
+                            <Typography className="stat-label">
+                                Humör
+                            </Typography>
 
-                    <Typography>
-                        {todayLog ? stress : "-"}
-                    </Typography>
-                </CardContent>
-            </Card>
+                            <Typography
+                                variant="h5"
+                                className="stat-value"
+                            >
+                                {mood}
+                            </Typography>
+                        </CardContent>
+                    </Card>
 
-            <Card
-                className="stat-card"
-                sx={{
-                    borderRadius: 3
-                }}
-            >
-                <CardContent>
-                    <Typography>
-                        Sömn
-                    </Typography>
+                    <Card
+                        sx={{
+                            borderRadius: 3,
+                            backgroundColor: '#F4F1F8'
+                        }}
+                    >
+                        <CardContent className="stat-card-content">
+                            <Typography className="stat-label">
+                                Energi
+                            </Typography>
 
-                    <Typography>
-                        {todayLog ? sleep : "-"}
-                    </Typography>
-                </CardContent>
-            </Card>
+                            <Typography
+                                variant="h5"
+                                className="stat-value"
+                            >
+                                {energy}
+                            </Typography>
+                        </CardContent>
+                    </Card>
 
+                    <Card
+                        sx={{
+                            borderRadius: 3,
+                            backgroundColor: '#F4F1F8'
+                        }}
+                    >
+                        <CardContent className="stat-card-content">
+                            <Typography className="stat-label">
+                                Stress
+                            </Typography>
+
+                            <Typography
+                                variant="h5"
+                                className="stat-value"
+                            >
+                                {stress}
+                            </Typography>
+                        </CardContent>
+                    </Card>
+
+                    <Card
+                        sx={{
+                            borderRadius: 3,
+                            backgroundColor: '#F4F1F8'
+                        }}
+                    >
+                        <CardContent className="stat-card-content">
+                            <Typography className="stat-label">
+                                Sömn
+                            </Typography>
+
+                            <Typography
+                                variant="h5"
+                                className="stat-value"
+                            >
+                                {sleep} {sleep !== "-" && "h"}
+                            </Typography>
+                        </CardContent>
+                    </Card>
+
+                </Box>
+            </Paper>
+            
             <StatModal
                 open={openModal}
                 onClose={() => setOpenModal(false)}
                 todayLog={todayLog}
                 onSave={onRefresh}
             />
-
-        </Paper>
+        </>
     );
 }
