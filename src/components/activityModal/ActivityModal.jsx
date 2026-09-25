@@ -9,24 +9,33 @@ import {
 } from "@mui/material";
 import { createActivity } from "../../services/ActivityService";
 
-export default function ActivityModal({
-    open,
-    onClose,
-    onSave,
-    todayLog
-}) {
+export default function ActivityModal({open, onClose, onSave, todayLog }) {
+
     const [activity, setActivity] = useState("");
     const [duration, setDuration] = useState("");
+
+    const [activityError, setActivityError] = useState(false);
+    const [durationError, setDurationError] = useState(false);
 
     const handleClose = () => {
         setActivity("");
         setDuration("");
+
+        setActivityError(false);
+        setDurationError(false);
+
         onClose();
     };
 
     const handleSubmit = async () => {
 
-        if (!activity.trim() || !duration || !todayLog?.id) {
+        const activityIsEmpty = !activity.trim();
+        const durationIsEmpty = !duration;
+
+        setActivityError(activityIsEmpty);
+        setDurationError(durationIsEmpty);
+
+        if (activityIsEmpty || durationIsEmpty || !todayLog?.id) {
             return;
         }
 
@@ -46,6 +55,9 @@ export default function ActivityModal({
             setActivity("");
             setDuration("");
 
+            setActivityError(false);
+            setDurationError(false);
+
             onClose();
 
         } catch (error) {
@@ -59,27 +71,56 @@ export default function ActivityModal({
             onClose={handleClose}
             fullWidth
             maxWidth="sm"
+            slotProps={{
+                paper: {
+                    sx: {
+                        borderRadius: 3
+                    }
+                }
+            }}
         >
             <DialogTitle>
                 Lägg till aktivitet
             </DialogTitle>
-
             <DialogContent dividers>
-
                 <TextField
                     fullWidth
                     label="Aktivitet"
                     value={activity}
-                    onChange={(e) => setActivity(e.target.value)}
-                    sx={{ mb: 3 }}
-                />
+                    error={activityError}
+                    helperText={
+                        activityError
+                            ? "Du måste fylla i aktivitet"
+                            : ""
+                    }
+                    onChange={(e) => {setActivity(e.target.value);
 
+                        if (e.target.value.trim()) {
+                            setActivityError(false);
+                        }
+                    }}
+                    sx={{
+                        mt: 1,
+                        mb: 3
+                    }}
+                />
                 <TextField
                     fullWidth
                     type="number"
                     label="Varaktighet (minuter)"
                     value={duration}
-                    onChange={(e) => setDuration(e.target.value)}
+                    error={durationError}
+                    helperText={
+                        durationError
+                            ? "Du måste fylla i varaktighet"
+                            : ""
+                    }
+                    onChange={(e) => {setDuration(e.target.value);
+
+                        if (e.target.value) {
+                            setDurationError(false);
+                        }
+                    }}
                     slotProps={{
                         htmlInput: {
                             min: 1,
@@ -87,25 +128,27 @@ export default function ActivityModal({
                         }
                     }}
                 />
-
             </DialogContent>
-
             <DialogActions>
-
                 <Button
                     color="inherit"
                     onClick={handleClose}
                 >
                     Avbryt
                 </Button>
-
                 <Button
                     variant="contained"
                     onClick={handleSubmit}
+                    sx={{
+                        backgroundColor: '#6f5f8f',
+                        borderRadius: 2,
+                        '&:hover': {
+                            backgroundColor: '#594b75'
+                        }
+                    }}
                 >
                     Lägg till
                 </Button>
-
             </DialogActions>
         </Dialog>
     );

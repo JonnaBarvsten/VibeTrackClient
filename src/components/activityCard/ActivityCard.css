@@ -1,23 +1,47 @@
 .activity-card {
     margin-top: 20px;
     height: 100%;
-    border-radius: 12px;
 }
 
-.activity-button {
-    background-color: rgb(243, 229, 245);
-    font-weight: bold;
-    letter-spacing: 1px;
+.activity-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
 }
 
 .activity-list {
     margin-top: 16px;
     max-height: 300px;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-right: 6px;
 }
 
 .activity-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 8px 12px;
+}
+
+@media (max-width: 600px) {
+
+    .activity-card {
+        margin-top: 16px;
+    }
+
+    .activity-header {
+        gap: 10px;
+    }
+
+    .activity-header .MuiButton-root {
+        font-size: 0.75rem;
+    }
+
+    .activity-list {
+        max-height: 300px;
+    }
 }
