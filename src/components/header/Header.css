@@ -20,3 +20,17 @@
 .header-logout {
     margin-left: auto !important;
 }
+
+@media (max-width: 600px) {
+
+    .header-user {
+        max-width: 30%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .header-logo {
+        font-size: 1.1rem;
+    }
+}

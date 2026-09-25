@@ -12,7 +12,12 @@ export default function Header({ username }) {
         <AppBar position="static" className="header">
             <Toolbar className="header-toolbar">
 
-                <Typography className="header-user">
+                <Typography className="header-user"
+                     sx={{
+                        fontSize: '1.15rem',
+                        fontWeight: 600
+                     }}
+                >
                     Hej {username}
                 </Typography>
 
