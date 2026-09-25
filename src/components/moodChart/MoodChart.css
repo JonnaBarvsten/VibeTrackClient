@@ -2,3 +2,23 @@
     margin-top: 20px;
     height: 100%;
 }
+
+.mood-chart-content {
+    height: 100%;
+}
+
+.mood-chart-title {
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+@media (max-width: 600px) {
+
+    .mood-chart-card {
+        margin-top: 16px;
+    }
+
+    .mood-chart-title {
+        font-size: 1.1rem;
+    }
+}
