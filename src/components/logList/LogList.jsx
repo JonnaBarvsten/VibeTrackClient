@@ -33,9 +33,10 @@ export default function LogList({ logs = [], onDeleteLog }) {
 
                     {sortedLogs.length > 0 ? (sortedLogs.map((log) => {
 
-                            const sleep = log.dailyStats?.hoursOfSleep ?? '-';
-                            const energy = log.dailyStats?.moodLogs?.[0]?.energyLevel ?? '-';
-                            const stress = log.dailyStats?.moodLogs?.[0]?.stressLevel ?? '-';
+                        const mood = log.dailyStats?.moodLogs?.[0]?.moodName ?? '-';
+                        const energy = log.dailyStats?.moodLogs?.[0]?.energyLevel ?? '-';
+                        const stress = log.dailyStats?.moodLogs?.[0]?.stressLevel ?? '-';
+                        const sleep = log.dailyStats?.hoursOfSleep ?? '-';
 
                             return (
                                 <ListItem
@@ -57,7 +58,7 @@ export default function LogList({ logs = [], onDeleteLog }) {
                                 >
                                     <ListItemText
                                         primary={new Date(log.date).toLocaleDateString('sv-SE')}
-                                        secondary={`Sömn: ${sleep} h | Energi: ${energy} | Stress: ${stress}`}
+                                        secondary={`Humör: ${mood} | Energi: ${energy} | Stress: ${stress} | Sömn: ${sleep} h`}
                                     />
                                 </ListItem>
                             );
