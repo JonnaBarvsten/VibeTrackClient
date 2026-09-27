@@ -44,7 +44,7 @@ export default function NotFoundPage() {
 
                 <Button
                     variant="contained"
-                    onClick={() => navigate('/dashboard')}
+                    onClick={() => navigate('/login')}
                     sx={{
                         backgroundColor: '#6f5f8f',
                         borderRadius: 2,
@@ -53,7 +53,7 @@ export default function NotFoundPage() {
                         }
                     }}
                 >
-                    Tillbaka till dashboard
+                    Tillbaka till inloggning
                 </Button>
 
             </Box>
