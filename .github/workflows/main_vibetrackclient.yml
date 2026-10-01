@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - VibeTrack
+name: Build and deploy Node.js app to Azure Web App - VibeTrackClient
 
 on:
   push:
@@ -52,15 +52,15 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_0EE732DBA9354465854C5C8FE8BD6756 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_67F0874224FE4F62BF75F1B0892C5608 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_A2407A58F9514E15887EC81A807E0A7A }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_08D3E89145F64A58A886ED57CA89ED63 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_8A41BDC6E73F45BCBC05D4BC3B44956D }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_236A9E749B7440B0881356434C83437D }}
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'VibeTrack'
+          app-name: 'VibeTrackClient'
           slot-name: 'Production'
           package: ./dist
           
