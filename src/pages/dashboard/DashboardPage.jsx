@@ -42,7 +42,7 @@ export default function DashboardPage() {
     async function handleDeleteLog(id) {
         try {
             await deleteDailyLog(id);
-            loadData();
+            await loadData();
         }
         catch (error) {
             console.log("Kunde inte radera logg: ", error);

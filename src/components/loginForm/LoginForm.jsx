@@ -7,7 +7,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import './LoginForm.css';
 import { useState } from 'react';
-import { login } from '../../services/AuthService';
+import { login, checkAuthentication } from '../../services/AuthService';
 
 export default function LoginForm() {
 
@@ -66,8 +66,15 @@ export default function LoginForm() {
 
         try {
             await login(formData.email, formData.password);
+            
+            const user = await checkAuthentication();
 
+            if(user.roles.includes("Admin")){
+                navigate("/admin")
+            }
+            else{
             navigate("/dashboard");
+            }
         }
         catch (error) {
             console.log(error);

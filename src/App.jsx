@@ -4,11 +4,13 @@ import RegisterPage from './pages/register/RegisterPage';
 import DashboardPage from './pages/dashboard/DashboardPage';
 import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
 import NotFoundPage from './pages/notFound/NotFoundPage';
+import AdminPage from './pages/admin/AdminPage';
 
 export default function App() {
 
   return (
       <Routes>
+        <Route path='/admin' element={<ProtectedRoute requiredRole="Admin"><AdminPage/></ProtectedRoute>}/>
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/register' element={<RegisterPage/>}/>
         <Route path='/dashboard' element={<ProtectedRoute><DashboardPage/></ProtectedRoute>}/>
