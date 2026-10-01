@@ -1,5 +1,8 @@
 import {useEffect, useState} from 'react';
 import{getUsers, deleteUser} from '../../services/AdminService'
+import UserList from '../../components/userList/UserList';
+import Header  from '../../components/header/Header';
+import {Box} from '@mui/material';
 
 export default function AdminPage(){
 
@@ -32,8 +35,21 @@ export default function AdminPage(){
 
 
     return(
-        
         <>
+         <Header/>
+
+         <Box
+            sx={{
+                minHeight: 'calc(100vh - 64px)',
+                padding: 3,
+                backgroundColor: '#DCD6E8'
+            }}
+         >
+        <UserList
+            users={users}
+            onDelete={handleDeleteUser}
+        />
+        </Box>
     </>
 )
 }

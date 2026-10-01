@@ -1,0 +1,37 @@
+.user-container {
+    padding: 24px;
+    min-height: calc(100vh - 112px);
+}
+
+.user-title {
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.user-scroll {
+    padding-right: 6px;
+}
+
+.user-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.user-item {
+    padding: 8px 16px;
+}
+
+@media (max-width: 600px) {
+    .user-container {
+        padding: 16px;
+    }
+
+    .user-title {
+        font-size: 1.1rem;
+    }
+
+    .user-item {
+        padding: 6px 12px;
+    }
+}
